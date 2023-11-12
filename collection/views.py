@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 
+from collection.models import Artwork
+
 def register(request):
     if request.method == 'POST':
         f = UserCreationForm(request.POST)
@@ -22,4 +24,7 @@ def register(request):
 
 
 def index(request):
-    return render(request, 'collection/index.html', {'data': 'Not'})
+    artworks = Artwork.objects.all()[:10]
+
+
+    return render(request, 'collection/index.html', {'artworks': artworks})
