@@ -3,12 +3,15 @@ FROM python:3.10.13-bullseye as base
 
 FROM base as builder
 
+ENV NODE_VERSION=20.9.0
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libpq-dev \
     shared-mime-info \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+
 
 RUN mkdir /install
 WORKDIR /install
@@ -43,6 +46,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && update-locale LANG=en_US.UTF-8 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    npm
+RUN npm install npm@latest -g && \
+    npm install n -g && \
+    n latest
 
 COPY --from=builder /install /usr/local
 
