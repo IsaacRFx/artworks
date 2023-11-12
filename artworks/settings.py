@@ -30,7 +30,6 @@ ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', cast=Csv(), default='*')
 # Application definition
 
 INSTALLED_APPS = [
-    'collection.apps.CollectionConfig',
     'widget_tweaks',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -38,10 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'collection',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -127,13 +128,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = (
-  os.path.join(BASE_DIR, 'collection/static'),
-)
-LOGOUT_REDIRECT_URL = '/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
+LOGOUT_REDIRECT_URL='/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
