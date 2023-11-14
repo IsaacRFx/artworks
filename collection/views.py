@@ -113,4 +113,9 @@ def collection_artwork_add(request, artwork_id, collection_id):
     artwork = Artwork.objects.get(id=artwork_id)
     collection.artworks.add(artwork)
     return redirect('/collections')
+
+def artwork(request, artwork_id):
+    artwork = Artwork.objects.get(id=artwork_id)
+    return render(request, 'collection/artwork.html',
+                  {'artwork': artwork})
  

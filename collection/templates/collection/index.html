@@ -19,7 +19,8 @@ add a link to the artwork detail page
   {% for artwork in artworks %}
   <div class="max-w-sm rounded overflow-hidden shadow-lg m-4">
     {% comment %} <a href="{% url 'artwork-detail' artwork.id %}"> {% endcomment %}
-      <img class="h-auto max-w-xs mx-auto" src="{{ artwork.image_url }}" alt="{{ artwork.title|title }}">
+      <a href="https://www.wikiart.org{{artwork.path}}"> <img class="h-auto max-w-xs mx-auto" src="{{ artwork.image_url }}" alt="{{ artwork.title|title }}"></a>
+      
     </a>
     <div class="px-6 pt-4 pb-2">
       {% if artwork.period %}

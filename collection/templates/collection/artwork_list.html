@@ -42,7 +42,7 @@
         <tbody>
           {% for artwork in object_list %}
           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <td class="py-4 px-6"><img class="h-auto max-w-xs rounded-lg" src="{{ artwork.image_url }}" alt="{{ artwork.title }}"></td>
+            <td class="py-4 px-6"><a href="https://www.wikiart.org{{artwork.path}}"><img class="h-auto max-w-xs rounded-lg" src="{{ artwork.image_url }}" alt="{{ artwork.title }}"></a></td>
             <th
             scope="row"
             class="py-4 px-6 font-medium text-gray-900 dark:text-white"

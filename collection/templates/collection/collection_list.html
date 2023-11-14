@@ -11,7 +11,7 @@
                         <td>
                             <ul>
                             {% for artworks in collection.artworks.all %}
-                                <li> {{artworks.title|title}}</li>
+                                <li><a href="https://www.wikiart.org{{artworks.path}}"> {{artworks.title|title}}</a></li>
                             {% endfor %}
                             </ul>
                       </td>
