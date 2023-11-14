@@ -1,0 +1,120 @@
+{% extends 'collection/base.html' %}
+{% load search_tags %}
+
+{% block title %}Films{% endblock %}
+
+{% block content %}
+
+<div class="flex min-h-screen bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+  <aside class="sticky md:w-1/4 overflow-y-auto bg-gray-50 dark:bg-gray-700 dark:text-gray-400 text-center">
+    <div class="px-6 pb-6 dark:bg-slate-600">
+      <div class="pt-4 mb-4">
+        <h1 class="font-serif text-2xl border-b-4">Artworks</h1>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">Source: <a target="_blank" class="no-underline hover:underline" href="https://www.wikiart.org/en">Wikiart - Visual Art Encyclopedia</a></p>
+      </div>
+    <form method="get" action="." class="mb-3">
+      <div class="relative">
+
+        <input type="search" id="id_search" name="search"{% if filter.form.search.value != None %} value="{{ filter.form.search.value|stringformat:'s' }}"{% endif %} class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-lg border focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Search">
+        <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+      </div>
+    </form>
+    {% show_facets filter %}
+  </aside>
+
+  <div class="flex-1">
+    <div class="overflow-x-auto overflow-y-auto relative">
+      <table
+        class="w-full table-auto text-sm text-left text-gray-500 dark:text-gray-400"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="py-3 px-6">Art</th>
+            <th scope="col" class="py-3 px-6">Author</th>
+            <th scope="col" class="py-3 px-6">Title</th>
+            <th scope="col" class="py-3 px-6">Style</th>
+            <th scope="col" class="py-3 px-6">Period</th>
+            <th scope="col" class="py-3 px-6">Genre</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for artwork in object_list %}
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td class="py-4 px-6"><a href="https://www.wikiart.org{{artwork.path}}"><img class="h-auto max-w-xs rounded-lg" src="{{ artwork.image_url }}" alt="{{ artwork.title }}"></a></td>
+            <th
+            scope="row"
+            class="py-4 px-6 font-medium text-gray-900 dark:text-white"
+            >
+            {{ artwork.author }}
+          </th>
+            <td class="py-4 px-6">{{ artwork.title }}</td>
+            <td class="py-4 px-6">{{ artwork.style|title }}</td>
+            <td class="py-4 px-6">{{ artwork.period|title }}</td>
+            <td class="py-4 px-6">{{ artwork.genre|title }}</td>
+            <td><details class="dropdown">
+              <summary class="m-1 btn">Agregar a ...</summary>
+              <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                {% for collection in collections %}
+                <li>
+                  <a href="/collection/artwork/add/{{artwork.id}}/{{collection.id}}" class="btn btn-ghost btn-sm rounded-btn">{{ collection.name }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </details></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Pagination -->
+    <div class="flex flex-col items-center">
+      <div class="inline-flex mt-2 xs:mt-0">
+        <!-- Buttons -->
+        <a
+          href="{% if page_obj.has_previous %}{{ request.path }}?page={{ page_obj.previous_page_number }}{% endif %}"
+          class="inline-flex items-center py-2 px-4 text-sm disabled font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        >
+          <svg
+            aria-hidden="true"
+            class="mr-2 w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          Prev
+        </a>
+        <a
+          href="{% if page_obj.has_next %}{{ request.path }}?page={{ page_obj.next_page_number }}{% endif %}"
+          class="inline-flex items-center py-2 px-4 text-sm font-medium text-white bg-gray-800 rounded-r border-0 border-l border-gray-700 hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+        >
+          Next
+          <svg
+            aria-hidden="true"
+            class="ml-2 w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+  </div>
+</div>
+
+{% endblock %}

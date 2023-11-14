@@ -5,12 +5,16 @@
     <meta charset="utf-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link href="{% static 'output.css' %}" rel="stylesheet" />
+    {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" /> {% endcomment %}
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
+    <link href="{% static 'output.css' %}" rel="stylesheet" />
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" >
+
 
     {% block head %}
 
     {% endblock head %}
-    <title> artworks </title>
+    <title> Artworks </title>
 
       <script>
       /*to prevent Firefox FOUC, this must be here*/
@@ -24,11 +28,11 @@
       </style>
   </head>
 
-  <body class="bg-white dark:bg-slate-900" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
-    {% block header %}
-      {% include "collection/header.html" %} 
-    {% endblock header %}
-
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+  {% block header %}
+  {% include "collection/header.html" %} 
+  {% endblock header %}
+  
 
     {% block content %}
 
@@ -43,10 +47,14 @@
 
   <script src="https://unpkg.com/hyperscript.org@0.9.7"></script>
   <script src="https://unpkg.com/htmx.org@1.8.5" integrity="sha384-7aHh9lqPYGYZ7sTHvzP1t3BAfLhYSTy9ArHdP3Xsr9/3TlGurYgcPBoFmXX2TX/w" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
+  
+
 
   {% block scripts %}
 
   {% endblock scripts %}
+
 
 </body>
 </html>

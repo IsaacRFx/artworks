@@ -1,0 +1,30 @@
+{% for collection in collections %}
+            <tr>
+              <td>
+                {% if collection.artworks.all.first.image_url %}
+                  <img src="{{collection.artworks.all.first.image_url}}" alt="" class="h-auto max-w-xs rounded-lg">
+                {% endif %}
+              </td>
+              <td class="whitespace-nowrap py-4 pl-4
+                        pr-3 text-sm font-medium 
+                        text-gray-900 sm:pl-0">{{collection.name}}</td>
+                        <td>
+                            <ul>
+                            {% for artworks in collection.artworks.all %}
+                                <li><a href="https://www.wikiart.org{{artworks.path}}"> {{artworks.title|title}}</a></li>
+                            {% endfor %}
+                            </ul>
+                      </td>
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{collection.description}}</td>
+              <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                <button type="button" class="block rounded-md bg-indigo-600 px-3
+                    py-2 text-center text-sm font-semibold text-white 
+                    shadow-sm hover:bg-indigo-500 focus-visible:outline 
+                    focus-visible:outline-2 focus-visible:outline-offset-2 
+                    focus-visible:outline-indigo-600"
+                   hx-get="/collection/edit/{{collection.name}}" hx-target="body" hx-swap="beforeend" 
+                >Editar</button><span class="sr-only">
+                                        , {{collection.name}}</span></a>
+              </td>
+            </tr> 
+{% endfor %}

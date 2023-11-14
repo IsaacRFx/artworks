@@ -9,6 +9,8 @@ media
 # Tailwindcss 
 output.css
 tailwindcss
+node_modules
+staticfiles
 
 # Backup files # 
 *.bak 

@@ -1,0 +1,23 @@
+{% extends "collection/base.html" %}
+
+{% block content %}
+<div class="max-w-sm rounded overflow-hidden shadow-lg m-4">
+    {% comment %} <a href="{% url 'artwork-detail' artwork.id %}"> {% endcomment %}
+      <img class="h-auto max-w-xs mx-auto" src="{{ artwork.image_url }}" alt="{{ artwork.title|title }}">
+    </a>
+    <div class="px-6 pt-4 pb-2">
+        {% if artwork.title %}
+      <span class="">{{ artwork.title }}</span>
+      {% endif %}
+        {% if artwork.artist %}
+        <span class="">{{ artwork.artist }}</span>
+        {% endif %}
+      {% if artwork.period %}
+      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ artwork.period }}</span>
+      {% endif %}
+      {% if artwork.style %}
+      <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ artwork.style }}</span>
+      {% endif %}
+    </div>
+  </div>
+{% endblock content %}
