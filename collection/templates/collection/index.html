@@ -28,8 +28,19 @@ add a link to the artwork detail page
       {% if artwork.style %}
       <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">{{ artwork.style }}</span>
       {% endif %}
+      <details class="dropdown">
+        <summary class="m-1 btn">Agregar a ...</summary>
+        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+          {% for collection in collections %}
+          <li>
+            <a href="/collection/artwork/add/{{artwork.id}}/{{collection.id}}" class="btn btn-ghost btn-sm rounded-btn">{{ collection.name }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </details>
     </div>
   </div>
+  
   {% endfor %}
 
 {% endblock content %}

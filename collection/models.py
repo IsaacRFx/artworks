@@ -40,3 +40,11 @@ class Artwork(models.Model):
 
     def __str__(self):
         return self.title
+
+class Collection(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.RESTRICT)
+    artworks = models.ManyToManyField(Artwork)
+    name = models.CharField(max_length=80)
+    description = models.TextField(blank=True)\
+
+        # 

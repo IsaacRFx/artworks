@@ -53,6 +53,16 @@
             <td class="py-4 px-6">{{ artwork.style|title }}</td>
             <td class="py-4 px-6">{{ artwork.period|title }}</td>
             <td class="py-4 px-6">{{ artwork.genre|title }}</td>
+            <td><details class="dropdown">
+              <summary class="m-1 btn">Agregar a ...</summary>
+              <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                {% for collection in collections %}
+                <li>
+                  <a href="/collection/artwork/add/{{artwork.id}}/{{collection.id}}" class="btn btn-ghost btn-sm rounded-btn">{{ collection.name }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </details></td>
           </tr>
           {% endfor %}
         </tbody>
