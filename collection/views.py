@@ -16,7 +16,7 @@ def register(request):
     if request.method == 'POST':
         f = SignUpForm(request.POST)
         if f.is_valid():
-            f.save()
+            f.save() #
             username = f.cleaned_data.get('username')
             raw_password = f.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
@@ -57,7 +57,7 @@ class ArtworkListView(ListView):
         collection = Collection.objects.filter(owner=self.request.user) #
         context = super().get_context_data(**kwargs)
         context["filter"] = self.filter_set
-        context["collections"] = collection #
+        context["collections"] = collection # #
         return context
 
 def collections(request):
@@ -112,5 +112,5 @@ def collection_artwork_add(request, artwork_id, collection_id):
     collection = Collection.objects.get(id=collection_id)
     artwork = Artwork.objects.get(id=artwork_id)
     collection.artworks.add(artwork)
-    return redirect('/')
+    return redirect('/collections')
  

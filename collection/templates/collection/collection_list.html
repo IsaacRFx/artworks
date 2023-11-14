@@ -1,5 +1,10 @@
 {% for collection in collections %}
             <tr>
+              <td>
+                {% if collection.artworks.all.first.image_url %}
+                  <img src="{{collection.artworks.all.first.image_url}}" alt="" class="h-auto max-w-xs rounded-lg">
+                {% endif %}
+              </td>
               <td class="whitespace-nowrap py-4 pl-4
                         pr-3 text-sm font-medium 
                         text-gray-900 sm:pl-0">{{collection.name}}</td>
