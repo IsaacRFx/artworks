@@ -36,7 +36,7 @@ def index(request):
         return HttpResponseRedirect('/accounts/login/')
 
     collections = Collection.objects.filter(owner=request.user)
-    artworks = Artwork.objects.all()[:10]
+    artworks = Artwork.objects.all()[:50]
 
 
     return render(request, 'collection/index.html', {'artworks': artworks, 'collections': collections})
